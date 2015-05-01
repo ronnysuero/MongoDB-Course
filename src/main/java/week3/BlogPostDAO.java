@@ -35,7 +35,7 @@ public class BlogPostDAO
 
 		// XXX HW 3.2,  Work Here
 		// Return a list of DBObjects, each one a post from the posts collection
-		return this.postsCollection.find().limit(limit).sort(new Document("_id", -1)).into(new ArrayList<>());
+		return this.postsCollection.find().limit(limit).sort(new Document("date", -1)).into(new ArrayList<>());
 	}
 
 
@@ -66,6 +66,12 @@ public class BlogPostDAO
 		return permalink;
 	}
 
+	public List<Document> findByTagDateDescending(final String tag)
+	{
+		Document query = new Document("tags", tag);
+		System.out.println("/tag query: " + query.toString());
+		return postsCollection.find(query).sort(new Document("date", -1)).limit(10).into(new ArrayList<>());
+	}
 
 	// White space to protect the innocent
 
